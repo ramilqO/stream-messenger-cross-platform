@@ -2,7 +2,8 @@ import { CoreRuntime } from "../../kernel/CoreRuntime";
 import { IMessageRepository } from "./application/interfaces/IMessageRepository";
 import { SendMessageUseCase } from "./application/use-cases/SendMessageUseCase";
 import { Message } from "./domain/entities/Message";
-import { MessageSentEvent } from "./domain/events/MessageSentEvent";
+// Импорт для активации module augmentation событий
+import "./domain/events/events";
 
 export function createMessagingFacade(runtime: CoreRuntime) {
   // Достаём зависимости через DI
@@ -11,9 +12,6 @@ export function createMessagingFacade(runtime: CoreRuntime) {
   const messageRepo = runtime.resolve<IMessageRepository>("IMessageRepository");
 
   return {
-    /**
-     * Отправка сообщения (через UseCase)
-     */
     async sendMessage(
       chatId: string,
       senderId: string,
@@ -32,11 +30,12 @@ export function createMessagingFacade(runtime: CoreRuntime) {
     /**
      * Подписка на отправленные сообщения (через EventBus)
      * Возвращает функцию для отписки
+     * Теперь тип события автоматически определяется через DomainEventMap
      */
     onMessageSent(handler: (message: Message) => void) {
-      return runtime.eventBus.subscribe<MessageSentEvent>(
-        "MessageSentEvent",
-        (ev) => handler(ev.message)
+      // TypeScript автоматически определит тип ev как MessageSentEvent через DomainEventMap
+      return runtime.eventBus.subscribe("MessageSentEvent", (ev) =>
+        handler(ev.message)
       );
     },
   };

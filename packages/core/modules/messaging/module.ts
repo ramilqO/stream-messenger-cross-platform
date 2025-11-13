@@ -3,6 +3,7 @@ import { IEventBus } from "../../kernel/EventBus";
 import { SendMessageUseCase } from "./application/use-cases/SendMessageUseCase";
 import { MessageRepositoryInMemory } from "./infrastructure/MessageRepositoryInMemory";
 import { FeatureModule } from "../../kernel/CoreRuntime";
+import "./domain/events/events-map"; // for TS module augmentation
 
 export class MessageModule implements FeatureModule {
   register(container: DependencyContainer, eventBus: IEventBus) {
@@ -14,9 +15,8 @@ export class MessageModule implements FeatureModule {
         new SendMessageUseCase(c.resolve("IMessageRepository"), eventBus),
     });
 
-    // Внутренняя подписка на событие (пример)
-    eventBus.subscribe("MessageSentEvent", (ev: any) => {
-      console.log("[module] MessageSentEvent received:", ev.message.content);
+    eventBus.subscribe("MessageSentEvent", (event) => {
+      console.log("[module] MessageSentEvent received:", event.message.content);
     });
   }
 }
