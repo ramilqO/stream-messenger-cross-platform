@@ -1,26 +1,38 @@
-import { container as globalContainer, DependencyContainer } from "tsyringe";
+import "reflect-metadata";
+import {
+  container as globalContainer,
+  type DependencyContainer,
+} from "tsyringe";
+import type { IEventBus } from "./EventBus";
 import { RxEventBus } from "./RxEventBus";
-import { IEventBus } from "./EventBus";
 
 export interface FeatureModule {
-  register(container: DependencyContainer, eventBus: IEventBus): void;
+  register(
+    container: DependencyContainer,
+    eventBus: IEventBus,
+    runtime: CoreRuntime
+  ): void;
 }
 
 export class CoreRuntime {
   readonly container: DependencyContainer;
   readonly eventBus: IEventBus;
+  private facades: Record<string, any> = {};
 
   constructor(container?: DependencyContainer, eventBus?: IEventBus) {
     this.container = container ?? globalContainer.createChildContainer();
     this.eventBus = eventBus ?? new RxEventBus();
-    this.container.registerInstance<IEventBus>("IEventBus", this.eventBus);
   }
 
   registerModule(module: FeatureModule) {
-    module.register(this.container, this.eventBus);
+    module.register(this.container, this.eventBus, this);
   }
 
-  resolve<T>(token: any): T {
-    return this.container.resolve<T>(token);
+  registerFacade(name: string, api: any) {
+    this.facades[name] = api;
+  }
+
+  getFacades() {
+    return this.facades;
   }
 }
