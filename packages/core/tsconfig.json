@@ -1,0 +1,45 @@
+{
+  "extends": "../../root/tsconfig.base.json",
+  "compilerOptions": {
+    // ===== Output =====
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+
+    // ===== Language =====
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2020"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    // ===== Decorators =====
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // ===== Strict Mode =====
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+
+    // ===== Path aliases (опционально) =====
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["./*"]
+    },
+
+    // ===== Bundlers =====
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // ===== Interop =====
+    "importsNotUsedAsValues": "error"
+  },
+
+  "include": ["src"],
+  "exclude": ["dist", "**/*.test.ts", "**/*.spec.ts"]
+}
