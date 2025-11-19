@@ -1,0 +1,36 @@
+{
+    "name": "stream-messenger",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "packageManager": "pnpm@10.22.0",
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=9.0.0"
+    },
+    "scripts": {
+        "dev": "turbo run dev --parallel",
+        "build": "turbo run build",
+        "lint": "turbo run lint --parallel",
+        "lint:fix": "turbo run lint:fix --parallel",
+        "test": "turbo run test",
+        "clean": "turbo run clean",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^7.0.0",
+        "@typescript-eslint/parser": "^7.0.0",
+        "eslint": "^9.0.0",
+        "eslint-config-prettier": "^10.1.0",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "eslint-plugin-unused-imports": "^4.3.0",
+        "prettier": "^3.6.2",
+        "turbo": "^2.0.0",
+        "typescript": "^5.8.3"
+    }
+}

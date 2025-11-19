@@ -1,4 +1,9 @@
 export abstract class DomainEvent {
-  abstract readonly name: string;
-  readonly occurredAt: Date = new Date();
+    abstract name: string
+    readonly occurredAt = new Date()
 }
+
+/**
+ * Domain event map interface for module augmentation and type safety.
+ */
+export interface DomainEventMap {} // for module augmentation
