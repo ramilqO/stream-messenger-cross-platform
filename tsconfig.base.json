@@ -9,7 +9,8 @@
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
-            "@core/*": ["packages/core/*"]
+            "@core/*": ["packages/core/*"],
+            "@shared/*": ["packages/shared/*"]
         }
     }
 }

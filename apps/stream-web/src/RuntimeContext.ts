@@ -1,15 +1,14 @@
-import { createContext, useContext } from "react";
+import { CoreRuntime } from '@core/kernel/CoreRuntime'
+import { createContext, useContext } from 'react'
 
-import type { CoreRuntime } from "../../../packages/core/kernel/CoreRuntime";
-
-export const RuntimeContext = createContext<CoreRuntime | null>(null);
+export const RuntimeContext = createContext<CoreRuntime | null>(null)
 
 export function useRuntime(): CoreRuntime {
-  const ctx = useContext(RuntimeContext);
+    const ctx = useContext(RuntimeContext)
 
-  if (!ctx) {
-    throw new Error("useRuntime must be used inside <RuntimeProvider>");
-  }
+    if (!ctx) {
+        throw new Error('useRuntime must be used inside <RuntimeProvider>')
+    }
 
-  return ctx;
+    return ctx
 }
