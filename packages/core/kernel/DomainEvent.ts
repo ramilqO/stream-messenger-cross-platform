@@ -3,3 +3,4 @@ export abstract class DomainEvent {
   readonly occurredAt = new Date();
 }
 
+export interface DomainEventMap {} // for module augmentation

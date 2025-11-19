@@ -1,11 +1,24 @@
 import { DomainEvent } from "../../../kernel/DomainEvent";
 
-// TODO: Module Augmenatition: add event to the global DomainEventMap
+// TODO: Module Augmenatition: add event to the global DomainEventMa
 
-export class UserLoggedInEvent extends DomainEvent {
-  readonly name = "UserLoggedInEvent";
+export interface UserLoggedInEvent extends DomainEvent {
+  name: "UserLoggedInEvent";
+  userId: string;
+  user: {
+    id: string;
+    email: string;
+  };
+}
 
-  constructor(public user: { id: string; email: string }) {
-    super();
+export interface UserLoggedOutEvent extends DomainEvent {
+  name: "UserLoggedOutEvent";
+  userId: string;
+}
+
+declare module "../../../kernel/DomainEvent" {
+  export interface DomainEventMap {
+    UserLoggedInEvent: UserLoggedInEvent;
+    UserLoggedOutEvent: UserLoggedOutEvent;
   }
 }

@@ -1,6 +1,6 @@
-import { AuthRepositoryInMemory } from "../infrastructure/AuthRepositoryInMemory";
 import type { IEventBus } from "../../../kernel/EventBus";
 import { UserLoggedInEvent } from "../domain/events";
+import { AuthRepositoryInMemory } from "../infrastructure/AuthRepositoryInMemory";
 
 export class LoginUseCase {
   constructor(

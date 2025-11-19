@@ -1,0 +1,130 @@
+# ——————————————————————————————
+# Node / PNPM
+# ——————————————————————————————
+node_modules/
+.pnpm-store/
+.pnp.*
+.pnpm-debug.log
+
+# Turbo
+.turbo/
+turbo-output/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temp
+.DS_Store
+*.tmp
+*.swp
+*.lock
+*.pid
+*.seed
+*.tsbuildinfo
+*.tgz
+
+# ——————————————————————————————
+# Environment
+# ——————————————————————————————
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# ——————————————————————————————
+# Build artifacts
+# ——————————————————————————————
+dist/
+build/
+out/
+coverage/
+.eslintcache
+
+# Vite
+vite.config.ts.timestamp*
+vite.config.js.timestamp*
+*.vite*
+
+# Next.js
+.next/
+out/
+
+# Expo / React Native
+.expo/
+.expo-shared/
+android/
+ios/
+*.keystore
+*.jks
+
+# Electron / Desktop app
+release/
+build/
+*.asar
+*.app
+*.exe
+*.dll
+
+# Web
+apps/stream-web/dist/
+apps/stream-web/.vite/
+apps/stream-web/.cache/
+
+# Desktop
+apps/stream-desktop/dist/
+apps/stream-desktop/out/
+
+# Mobile
+apps/stream-mobile/android/
+apps/stream-mobile/ios/
+apps/stream-mobile/.expo/
+apps/stream-mobile/.expo-shared/
+
+# ——————————————————————————————
+# IDE / Editors
+# ——————————————————————————————
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# VSCode machine-specific
+.vscode/*.db
+
+# JetBrains
+*.iml
+*.ipr
+*.iws
+
+# ——————————————————————————————
+# OS generated
+# ——————————————————————————————
+Thumbs.db
+.DS_Store
+ehthumbs.db
+Icon?
+*.lnk
+
+# ——————————————————————————————
+# Package artifacts
+# ——————————————————————————————
+*.tgz
+packages/**/dist/
+packages/**/build/
+packages/**/lib/
+
+# ——————————————————————————————
+# Misc
+# ——————————————————————————————
+*.orig
+*.patch

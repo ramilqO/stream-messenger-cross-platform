@@ -1,8 +1,10 @@
 import "reflect-metadata";
+
 import {
   container as globalContainer,
   type DependencyContainer,
 } from "tsyringe";
+
 import type { IEventBus } from "./EventBus";
 import { RxEventBus } from "./RxEventBus";
 
@@ -36,4 +38,3 @@ export class CoreRuntime {
     return this.facades;
   }
 }
-

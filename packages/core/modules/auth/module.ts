@@ -1,9 +1,16 @@
-import type { FeatureModule } from "../../kernel/CoreRuntime";
-import { AuthRepositoryInMemory } from "./infrastructure/AuthRepositoryInMemory";
+import type { DependencyContainer } from "tsyringe";
+
+import type { CoreRuntime, FeatureModule } from "../../kernel/CoreRuntime";
+import type { IEventBus } from "../../kernel/EventBus";
 import { LoginUseCase } from "./application/LoginUseCase";
+import { AuthRepositoryInMemory } from "./infrastructure/AuthRepositoryInMemory";
 
 export class AuthModule implements FeatureModule {
-  register(container, eventBus, runtime) {
+  register(
+    container: DependencyContainer,
+    eventBus: IEventBus,
+    runtime: CoreRuntime
+  ) {
     container.register("IAuthRepository", { useClass: AuthRepositoryInMemory });
 
     container.register("LoginUseCase", {
