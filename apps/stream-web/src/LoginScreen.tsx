@@ -1,16 +1,17 @@
-import { useRuntime } from './RuntimeContext'
+import { User } from '@core/modules/auth/domain/entities/User'
 
-export function LoginScreen() {
-    const runtime = useRuntime()
-    const facades = runtime.getFacades()
+import { useFacade } from './hooks/useFacade'
+import { useAuthStore } from './store/useAuthStore'
 
-    async function handleLogin() {
-        await facades.auth.login('test@example.com', '1234')
+export const LoginScreen = () => {
+    const auth = useFacade('auth')
+    const currentUser = useAuthStore((s) => s.currentUser)
+
+    const handleLogin = async () => {
+        await auth.login(new User('test@example.com', 'pass'))
     }
 
     return (
-        <div>
-            <button onClick={handleLogin}>Login</button>
-        </div>
+        <div>{currentUser ? `Hello ${currentUser.email}` : <button onClick={handleLogin}>Login</button>}</div>
     )
 }

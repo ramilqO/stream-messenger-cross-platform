@@ -1,15 +1,10 @@
-import { createRoot } from "react-dom/client";
+import { createRoot } from 'react-dom/client'
 
-import { bootstrap } from "../../../packages/core/bootstrap";
-import { LoginScreen } from "./LoginScreen";
-import { RuntimeProvider } from "./RuntimeProvider";
+import App from './App'
+import { CoreRuntimeProvider } from './providers/CoreRuntimeProvider'
 
-(async () => {
-  const runtime = await bootstrap();
-
-  createRoot(document.getElementById("root")!).render(
-    <RuntimeProvider runtime={runtime}>
-      <LoginScreen />
-    </RuntimeProvider>
-  );
-})();
+createRoot(document.getElementById('root')!).render(
+    <CoreRuntimeProvider>
+        <App />
+    </CoreRuntimeProvider>,
+)
