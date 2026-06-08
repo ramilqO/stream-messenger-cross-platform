@@ -1,5 +1,4 @@
-import { DomainEvent } from '@core/kernel/DomainEvent'
-
+import { DomainEvent } from '../../../../kernel/DomainEvent'
 import { User } from '../entities/User'
 
 export class UserLoggedInEvent extends DomainEvent {
@@ -16,7 +15,7 @@ export class UserLoggedOutEvent extends DomainEvent {
     }
 }
 
-declare module '@core/kernel/DomainEvent' {
+declare module '@stream/core' {
     interface DomainEventMap {
         UserLoggedInEvent: UserLoggedInEvent
         UserLoggedOutEvent: UserLoggedOutEvent

@@ -5,7 +5,7 @@ export interface NotificationsFacade {
     closeNotification(): void
 }
 
-declare module '@core/kernel/Facades' {
+declare module '@stream/core' {
     export interface FacadesMap {
         notifications: NotificationsFacade
     }

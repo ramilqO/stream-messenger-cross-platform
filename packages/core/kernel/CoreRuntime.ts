@@ -2,6 +2,7 @@ import 'reflect-metadata'
 
 import { container as globalContainer, type DependencyContainer } from 'tsyringe'
 
+import type { DomainEventMap } from './DomainEvent'
 import { ErrorBoundary } from './ErrorBoundary'
 import type { IEventBus } from './EventBus'
 import { FacadesMap } from './Facades'
@@ -35,6 +36,7 @@ export class CoreRuntime {
     readonly errorBoundary: ErrorBoundary
 
     private facades: Partial<FacadesMap> = {}
+    private disposables: Array<() => void> = []
 
     /**
      * Creates a new CoreRuntime instance.
@@ -58,6 +60,27 @@ export class CoreRuntime {
      */
     registerModule(module: FeatureModule): void {
         module.register(this.container, this.eventBus, this)
+    }
+
+    /**
+     * Subscribes to a domain event with error boundary protection and lifecycle tracking.
+     * Call {@link dispose} to unsubscribe all module listeners.
+     */
+    subscribeToEvent<E extends keyof DomainEventMap>(
+        eventName: E,
+        handler: (event: DomainEventMap[E]) => void,
+    ): void {
+        const wrapped = this.errorBoundary.wrapEventSubscriber(String(eventName), handler)
+        const unsubscribe = this.eventBus.subscribe(eventName, wrapped)
+        this.disposables.push(unsubscribe)
+    }
+
+    /** Unsubscribes all event listeners registered via {@link subscribeToEvent}. */
+    dispose(): void {
+        for (const unsubscribe of this.disposables) {
+            unsubscribe()
+        }
+        this.disposables = []
     }
 
     /**
@@ -87,11 +110,13 @@ export class CoreRuntime {
      */
     getFacade<K extends keyof FacadesMap>(name: K): FacadesMap[K] {
         const facade = this.facades[name]
+
         if (!facade) {
             throw new Error(
                 `Facade "${String(name)}" is not registered. Did you forget to register the module?`,
             )
         }
+
         return facade
     }
 

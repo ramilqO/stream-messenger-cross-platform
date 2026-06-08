@@ -1,19 +1,27 @@
-import type { DomainEvent } from '../../../../kernel/DomainEvent'
+import { DomainEvent } from '../../../../kernel/DomainEvent'
 
-export interface CloseNotificationEvent extends DomainEvent {
-    name: 'CloseNotificationEvent'
-    notificationId: number
+export class ShowNotificationEvent extends DomainEvent {
+    name: 'ShowNotificationEvent' = 'ShowNotificationEvent'
+
+    constructor(
+        public title: string,
+        public message: string,
+    ) {
+        super()
+    }
 }
 
-export interface ShowNotificationEvent extends DomainEvent {
-    name: 'ShowNotificationEvent'
-    title: string
-    message: string
+export class CloseNotificationEvent extends DomainEvent {
+    name: 'CloseNotificationEvent' = 'CloseNotificationEvent'
+
+    constructor(public notificationId: number) {
+        super()
+    }
 }
 
-declare module '@core/kernel/DomainEvent' {
-    export interface DomainEventMap {
-        CloseNotificationEvent: CloseNotificationEvent
+declare module '@stream/core' {
+    interface DomainEventMap {
         ShowNotificationEvent: ShowNotificationEvent
+        CloseNotificationEvent: CloseNotificationEvent
     }
 }

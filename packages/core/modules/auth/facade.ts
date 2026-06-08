@@ -5,7 +5,7 @@ export interface AuthFacade {
     logout(): void
 }
 
-declare module '@core/kernel/Facades' {
+declare module '@stream/core' {
     export interface FacadesMap {
         auth: AuthFacade
     }

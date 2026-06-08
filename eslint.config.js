@@ -10,8 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default [
     {
+        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.svelte-kit/**'],
+    },
+    {
         files: ['**/*.ts', '**/*.tsx'],
-        ignores: ['**/node_modules/**', '**/dist/**', '**/build/**'],
 
         languageOptions: {
             parser: tsParser,

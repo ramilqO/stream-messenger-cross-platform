@@ -1,8 +1,8 @@
 import { User } from '../domain/entities/User'
+import type { IAuthRepository, LoginCredentials } from '../domain/repositories/IAuthRepository'
 
-export class AuthRepositoryInMemory {
-    async login(user: User): Promise<User> {
-        // запрос на получение пользователя
-        return new User(user.email, user.password, user.id)
+export class AuthRepositoryInMemory implements IAuthRepository {
+    async login(credentials: LoginCredentials): Promise<User> {
+        return new User(credentials.email, credentials.password, 'demo-user-id')
     }
 }
