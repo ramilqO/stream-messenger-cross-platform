@@ -15,7 +15,7 @@ export class UserLoggedOutEvent extends DomainEvent {
     }
 }
 
-declare module '@stream/core' {
+declare module '@core/kernel/DomainEvent' {
     interface DomainEventMap {
         UserLoggedInEvent: UserLoggedInEvent
         UserLoggedOutEvent: UserLoggedOutEvent

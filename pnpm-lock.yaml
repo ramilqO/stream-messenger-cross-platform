@@ -42,6 +42,10 @@ importers:
   apps/stream-desktop: {}
 
   apps/stream-web:
+    dependencies:
+      '@stream/core':
+        specifier: workspace:*
+        version: link:../../packages/core
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^7.0.1

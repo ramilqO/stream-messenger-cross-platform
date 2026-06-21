@@ -1,8 +1,11 @@
-import { User } from './domain/entities/User'
+import type { AuthenticatedUser } from './application/dto/AuthenticatedUser'
+import type { LoginCredentials } from './domain/repositories/IAuthRepository'
+
+export type { AuthenticatedUser, LoginCredentials }
 
 export interface AuthFacade {
-    login(user: User): Promise<User>
-    logout(): void
+    login(credentials: LoginCredentials): Promise<AuthenticatedUser>
+    logout(): Promise<void>
 }
 
 declare module '@stream/core' {

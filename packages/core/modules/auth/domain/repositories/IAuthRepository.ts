@@ -7,4 +7,5 @@ export interface LoginCredentials {
 
 export interface IAuthRepository {
     login(credentials: LoginCredentials): Promise<User>
+    logout(): Promise<string | null>
 }
