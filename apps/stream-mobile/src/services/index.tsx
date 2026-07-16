@@ -1,10 +1,37 @@
 import { initAsyncStorage } from './async-storage'
-import { disableStandartConsole } from './logger'
+import { initLogger } from './logger'
 
-export const initAppServices = async () => {
-    // В будущем тут будет:
-    // await initDatabase()
-    // await initBluetoothMesh()
-    disableStandartConsole()
-    await initAsyncStorage()
+interface AppService {
+    name: string
+    init: () => Promise<void> | void
+}
+
+const coreServices: AppService[] = [
+    {
+        name: 'Logger',
+        init: initLogger,
+    },
+    {
+        name: 'Async Storage',
+        init: initAsyncStorage,
+    },
+    // {
+    //     name: 'Database',
+    //     init: initDatabase
+    // },
+    // {
+    //     name: 'Bluetooth Mesh',
+    //     init: initBluetoothMesh
+    // }
+]
+
+export const initAppServices = async (): Promise<void> => {
+    for (const service of coreServices) {
+        try {
+            await service.init()
+        } catch (error) {
+            console.error(`Service [${service.name}] failed to initialize:`, error)
+            throw error
+        }
+    }
 }

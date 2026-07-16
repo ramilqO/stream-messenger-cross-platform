@@ -1,37 +1,11 @@
-const isDev = __DEV__
+import { ConsoleTransport, logger, SentryTransport } from '@stream/shared'
 
-export const logger = {
-    log: (...args: any[]) => {
-        if (isDev) {
-            console.log('📱 [LOG]:', ...args)
-        }
-    },
+export const initLogger = () => {
+    logger.addTransport(new ConsoleTransport())
 
-    warn: (...args: any[]) => {
-        if (isDev) {
-            console.warn('⚠️ [WARN]:', ...args)
-        }
-    },
-
-    error: (...args: any[]) => {
-        if (isDev) {
-            console.error('🚨 [ERROR]:', ...args)
-        } else {
-            // В продакшене здесь будет отправка ошибок в сервис аналитики
-            // например: Sentry.captureException(args)
-        }
-    },
-}
-
-/**
- * Disables standard console methods (log, info, warn) in production builds to avoid cluttering logs.
- * In development builds, the console methods will still work as expected.
- */
-export const disableStandartConsole = () => {
-    if (!isDev) {
-        // for production builds, disable standard console methods to avoid cluttering logs
-        globalThis.console.log = () => {}
-        globalThis.console.info = () => {}
-        globalThis.console.warn = () => {}
+    if (!__DEV__) {
+        logger.addTransport(new SentryTransport())
     }
+
+    logger.log('🚀 Логгер успешно инициализирован в React Native!')
 }

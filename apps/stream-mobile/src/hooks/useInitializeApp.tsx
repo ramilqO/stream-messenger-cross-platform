@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { logger } from '@stream/shared'
 import { initAppServices } from '../services'
-import { logger } from '../services/logger'
 
 export const useInitializeApp = () => {
     const [isReady, setIsReady] = useState(false)
@@ -11,6 +11,7 @@ export const useInitializeApp = () => {
             try {
                 await initAppServices()
                 setIsReady(true)
+                logger.log('ХУЙ') // вывелось на симуляторе!
             } catch (error) {
                 logger.error('App initialization failed:', error)
             }
