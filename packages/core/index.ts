@@ -1,0 +1,10 @@
+import 'reflect-metadata'
+import './modules/auth/domain/events'
+import './modules/auth/facade'
+import './modules/notifications/domain/events/events'
+import './modules/notifications/facade'
+
+export { bootstrap } from './bootstrap'
+export * from './kernel'
+export { AuthModule } from './modules/auth/module'
+export { NotificationsModule } from './modules/notifications/module'
